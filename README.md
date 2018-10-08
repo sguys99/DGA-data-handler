@@ -1,2 +1,2 @@
 # DGA-data-handler
-An application to handler DGA data.
+An application to handle DGA data.
