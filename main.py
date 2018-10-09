@@ -41,14 +41,19 @@ class Application():
         self.root.rowconfigure(1, weight=1)
 
         self.frame_notifications = Frame(self.root, relief=RAISED, bg='blue')
-        self.status_field = Text(self.frame_notifications, height=0, wrap=WORD)
-        self.status_field.pack(fill=BOTH, expand=1)
+        self.status_field = Text(self.frame_notifications, height=0, width=0, wrap=WORD)
+        self.scrollbar1 = Scrollbar(self.frame_notifications)
+        self.scrollbar1.configure(command=self.status_field.yview)
+        self.status_field.pack(side=LEFT, expand=1, fill=BOTH)
+        self.scrollbar1.pack(side=LEFT, fill=Y)
 
         self.tabbed = ttk.Notebook(self.root)
         self.frame_data = Frame(self.tabbed, relief=RAISED, bg='green')
         self.frame_table = Frame(self.tabbed, relief=RAISED, bg='yellow')
+        self.frame_viz = Frame(self.tabbed, relief=RAISED)
         self.tabbed.add(self.frame_data, text='Данные')
         self.tabbed.add(self.frame_table, text='Таблица данных')
+        self.tabbed.add(self.frame_viz, text='Визуализация')
 
         self.label_data_source = Label(self.frame_data, text='Источник данных: данные не загружены')
         self.label_data_summary = Label(self.frame_data, text='Анализ данных: данные не загружены')
@@ -73,7 +78,11 @@ class Application():
         self.tree.column('c2h4', width=20, stretch=TRUE)
         self.tree.column('c2h2', width=20, stretch=TRUE)
 
-        self.tree.pack(fill=BOTH, expand=1)
+        self.scrollbar2 = Scrollbar(self.frame_table)
+        self.scrollbar2.configure(command=self.tree.yview)
+
+        self.tree.pack(fill=BOTH, expand=1, side=LEFT)
+        self.scrollbar2.pack(fill=Y, side=LEFT)
 
         self.tabbed.grid(row=0, column=0, sticky='snew')
         self.frame_notifications.grid(row=1, column=0, sticky='snew')
