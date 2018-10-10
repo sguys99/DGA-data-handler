@@ -84,6 +84,33 @@ class Application():
         self.tree.pack(fill=BOTH, expand=1, side=LEFT)
         self.scrollbar2.pack(fill=Y, side=LEFT)
 
+        self.gas_label = StringVar()
+        self.gas_label.set('h2')
+
+        self.frame_viz_graph = Frame(self.frame_viz, bg='red')
+        self.frame_gas_labels = Frame(self.frame_viz, bg='green')
+        self.radiobtn_h2 = Radiobutton(self.frame_gas_labels, text='H2', variable=self.gas_label, value='h2')
+        self.radiobtn_ch4 = Radiobutton(self.frame_gas_labels, text='CH4', variable=self.gas_label, value='сh4')
+        self.radiobtn_co = Radiobutton(self.frame_gas_labels, text='CO', variable=self.gas_label, value='co')
+        self.radiobtn_co2 = Radiobutton(self.frame_gas_labels, text='CO2', variable=self.gas_label, value='co2')
+        self.radiobtn_c2h6 = Radiobutton(self.frame_gas_labels, text='C2H6', variable=self.gas_label, value='c2h6')
+        self.radiobtn_c2h2 = Radiobutton(self.frame_gas_labels, text='C2H2', variable=self.gas_label, value='c2h2')
+        self.radiobtn_c2h4 = Radiobutton(self.frame_gas_labels, text='C2H4', variable=self.gas_label, value='c2h4')
+
+        self.frame_viz.rowconfigure(0, weight=1)
+        self.frame_viz.rowconfigure(1, weight=0)
+        self.frame_viz.columnconfigure(0, weight=1)
+
+        self.frame_viz_graph.grid(row=0, column=0, sticky='snew')
+        self.frame_gas_labels.grid(row=1, column=0, sticky='ew')
+        self.radiobtn_h2.pack(side=LEFT)
+        self.radiobtn_ch4.pack(side=LEFT)
+        self.radiobtn_co.pack(side=LEFT)
+        self.radiobtn_co2.pack(side=LEFT)
+        self.radiobtn_c2h6.pack(side=LEFT)
+        self.radiobtn_c2h2.pack(side=LEFT)
+        self.radiobtn_c2h4.pack(side=LEFT)
+
         self.tabbed.grid(row=0, column=0, sticky='snew')
         self.frame_notifications.grid(row=1, column=0, sticky='snew')
 
