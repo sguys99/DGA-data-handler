@@ -1,11 +1,15 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
-from pandas.plotting import autocorrelation_plot
-import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
 import datetime
+
+import matplotlib
+matplotlib.use('TkAgg')
+
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.figure import Figure
 
 import load_data as ld
 import visualization as v
@@ -130,12 +134,17 @@ class Application():
             self.tree.insert('', 'end', '', text=s['date'][i],
                  values=(s['H2'][i], s['CH4'][i], s['CO'][i], s['CO2'][i], s['C2H6'][i], s['C2H4'][i], s['C2H2'][i]))
 
+    def show_plot(self, s):
+        plt.plot(s['date'], s['H2'])
+        plt.show()
+
     def command_load_xlsx_data(self):
         xlsx_file_path = filedialog.askopenfilename()
         self.data = ld.load_data_from_xlsx(xlsx_file_path)
         self.show_status(f'Данные загружены из {xlsx_file_path}')
         self.show_data_summary_message(p.get_data_summary(self.data))
         self.show_text_data_table(self.data)
+        self.show_plot(self.data)
 
     def command_check_sparsity(self):
         try:
