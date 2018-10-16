@@ -134,14 +134,16 @@ class Application():
             self.tree.insert('', 'end', '', text=s['date'][i],
                  values=(s['H2'][i], s['CH4'][i], s['CO'][i], s['CO2'][i], s['C2H6'][i], s['C2H4'][i], s['C2H2'][i]))
 
-    def show_plot(self, s):
+    def show_plot(self, s, s_gas):
         f = Figure(figsize=(1, 1), dpi=100)
         a = f.add_subplot(111)
-        a.plot(s['date'], s['H2'])
+        a.plot(s['date'], s[s_gas])
 
         c = FigureCanvasTkAgg(f, self.frame_viz_graph)
         c.draw()
         c.get_tk_widget().pack(fill=BOTH, expand=TRUE)
+
+        f.delaxes([0][0])
 
     def command_load_xlsx_data(self):
         xlsx_file_path = filedialog.askopenfilename()
@@ -149,7 +151,7 @@ class Application():
         self.show_status(f'Данные загружены из {xlsx_file_path}')
         self.show_data_summary_message(p.get_data_summary(self.data))
         self.show_text_data_table(self.data)
-        self.show_plot(self.data)
+        self.show_plot(self.data, 'H2')
 
     def command_check_sparsity(self):
         try:
