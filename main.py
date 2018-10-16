@@ -91,8 +91,8 @@ class Application():
         self.gas_label = StringVar()
         self.gas_label.set('h2')
 
-        self.frame_viz_graph = Frame(self.frame_viz, bg='red')
-        self.frame_gas_labels = Frame(self.frame_viz, bg='green')
+        self.frame_viz_graph = Frame(self.frame_viz)
+        self.frame_gas_labels = Frame(self.frame_viz)
         self.radiobtn_h2 = Radiobutton(self.frame_gas_labels, text='H2', variable=self.gas_label, value='h2')
         self.radiobtn_ch4 = Radiobutton(self.frame_gas_labels, text='CH4', variable=self.gas_label, value='сh4')
         self.radiobtn_co = Radiobutton(self.frame_gas_labels, text='CO', variable=self.gas_label, value='co')
@@ -135,8 +135,13 @@ class Application():
                  values=(s['H2'][i], s['CH4'][i], s['CO'][i], s['CO2'][i], s['C2H6'][i], s['C2H4'][i], s['C2H2'][i]))
 
     def show_plot(self, s):
-        plt.plot(s['date'], s['H2'])
-        plt.show()
+        f = Figure(figsize=(1, 1), dpi=100)
+        a = f.add_subplot(111)
+        a.plot(s['date'], s['H2'])
+
+        c = FigureCanvasTkAgg(f, self.frame_viz_graph)
+        c.draw()
+        c.get_tk_widget().pack(fill=BOTH, expand=TRUE)
 
     def command_load_xlsx_data(self):
         xlsx_file_path = filedialog.askopenfilename()
